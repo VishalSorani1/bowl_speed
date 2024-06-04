@@ -4,6 +4,8 @@ import 'package:bowl_speed/services/controllers/manual_calc_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../utils/labels.dart';
+
 class ManualCalcHistory extends GetView<ManualCalculatorController> {
   const ManualCalcHistory({super.key});
 
@@ -18,9 +20,85 @@ class ManualCalcHistory extends GetView<ManualCalculatorController> {
       body: controller.historyList.isEmpty
           ? Center(child: Text("No History Found"))
           : ListView.builder(
-              itemBuilder: (context, index) =>
-                  ListTile(title: Text(controller.historyList[index].date)),
-              itemCount: controller.historyList.length),
+              itemCount: controller.historyList.length,
+              itemBuilder: (context, index) {
+                var obj = controller.historyList[index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    elevation: 4.0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomRowForHistoryCard(
+                            property: Labels.pitchSize,
+                            value: obj.distance.toString(),
+                          ),
+                          Divider(),
+                          CustomRowForHistoryCard(
+                            property: Labels.timeOfTravel,
+                            value: obj.time.toString(),
+                          ),
+                          Divider(),
+                          CustomRowForHistoryCard(
+                            property: Labels.kilometerPerHour,
+                            value: obj.kmh.toString(),
+                          ),
+                          Divider(),
+                          CustomRowForHistoryCard(
+                            property: Labels.milesPerHour,
+                            value: obj.mph.toString(),
+                          ),
+                          Divider(),
+                          CustomRowForHistoryCard(
+                            property: Labels.measurementType,
+                            value: obj.measurementType.toString(),
+                          ),
+                          Divider(),
+                          CustomRowForHistoryCard(
+                            property: Labels.date,
+                            value: obj.date.toString(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+    );
+  }
+}
+
+class CustomRowForHistoryCard extends StatelessWidget {
+  const CustomRowForHistoryCard(
+      {super.key, required this.property, required this.value});
+
+  final String property;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              property.toUpperCase(),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text(value),
+          ),
+        ],
+      ),
     );
   }
 }
