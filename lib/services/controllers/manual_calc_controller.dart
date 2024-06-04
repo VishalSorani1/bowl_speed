@@ -4,9 +4,9 @@ import 'dart:developer';
 
 import 'package:bowl_speed/utils/db_helper.dart';
 import 'package:bowl_speed/utils/formate_functions.dart';
+import 'package:bowl_speed/utils/labels.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 import '../../Pages/manual calculator/custom_result_dialogue.dart';
 import '../../Pages/manual calculator/manual_calc_history.dart';
@@ -24,13 +24,12 @@ class ManualCalculatorController extends GetxController {
   double get time => double.parse(timeController.text);
   late String result;
   late double speedMps; // meter per second
-  late double speedFps; // feet per second
   late double speedKmph; // kilometer per hour
   late double speedMph; // mile per hour
   late List<ManualCalcModel> historyList;
 
   @override
-  void onInit() async{
+  void onInit() async {
     historyList = await DatabaseHelper.instance.readAllManualCalcs();
     super.onInit();
   }
@@ -40,7 +39,6 @@ class ManualCalculatorController extends GetxController {
       speedMps = distance / time;
       speedKmph = speedMps * 3.6;
       speedMph = speedMps * 2.237;
-      speedFps = speedMps * 3.281;
       result =
           '${speedKmph.toStringAsFixed(3)} km/h - ${speedMph.toStringAsFixed(3)} mph';
       customResultDialogue('Result', result);
@@ -53,9 +51,9 @@ class ManualCalculatorController extends GetxController {
     ManualCalcModel manualCalcModel = ManualCalcModel(
       distance: distance,
       time: time,
-      mps: speedMps,
-      fps: speedFps,
-      measurementType: 'manual',
+      kmh: speedKmph,
+      mph: speedMph,
+      measurementType: Labels.manualCalculator,
       date: formatDateTime(DateTime.now()),
     );
 
