@@ -1,13 +1,15 @@
 import 'dart:developer';
 import 'package:bowl_speed/utils/colors.dart';
+import 'package:bowl_speed/widgets/custom_app_bar.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../services/controllers/quick_tap_controller.dart';
-import '../utils/constants.dart';
+import '../../services/controllers/quick_tap_controller.dart';
+import '../../utils/constants.dart';
+import '../../widgets/custom_lable_text.dart';
 
 class QuickTapScreen extends StatelessWidget {
   const QuickTapScreen({super.key});
@@ -18,46 +20,13 @@ class QuickTapScreen extends StatelessWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-          centerTitle: true,
-          leading: IconButton(
-              onPressed: () {}, icon: const Icon(Iconsax.arrow_left)),
-          backgroundColor: AppColors.primaryColor,
-          foregroundColor: AppColors.textWhiteColor,
-          title: Text(
-            StringConstants.quickTapTitle,
-            style: GoogleFonts.rubik(),
-          ),
-          actions: [
-            PopupMenuButton(itemBuilder: (BuildContext context) {
-              return [
-                PopupMenuItem(
-                  onTap: () {},
-                  padding: const EdgeInsets.only(left: 24.0),
-                  textStyle: GoogleFonts.rubik(),
-                  child: const Text("Rate us"),
-                ),
-                PopupMenuItem(
-                  onTap: () {},
-                  padding: const EdgeInsets.only(left: 24.0),
-                  textStyle: GoogleFonts.rubik(),
-                  child: const Text('Share app'),
-                ),
-                PopupMenuItem(
-                  onTap: () {},
-                  padding: const EdgeInsets.only(left: 24.0),
-                  textStyle: GoogleFonts.rubik(),
-                  child: const Text('Contact us'),
-                ),
-                PopupMenuItem(
-                  onTap: () {},
-                  padding: const EdgeInsets.only(left: 24.0),
-                  textStyle: GoogleFonts.rubik(),
-                  child: const Text('Privacy Policy'),
-                ),
-              ];
-            })
-          ]),
+      appBar: CustomAppBar(
+        title: StringConstants.quickTapTitle,
+        onBack: () {},
+        onHistory: () {
+          QuickTapController.instance.getHistory();
+        },
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
         child: SingleChildScrollView(
@@ -276,28 +245,6 @@ class QuickTapScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class CustomLabelText extends StatelessWidget {
-  const CustomLabelText({
-    super.key,
-    required this.label,
-    required this.style,
-  });
-  final String label;
-  final TextStyle style;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label,
-      softWrap: true,
-      textScaler: TextScaler.noScaling,
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-      style: style,
     );
   }
 }
