@@ -1,6 +1,10 @@
 import 'dart:async';
 
+import 'package:bowl_speed/pages/quick_tap/quick_tap_history.dart';
+import 'package:bowl_speed/services/models/quick_tap_model.dart';
 import 'package:bowl_speed/utils/colors.dart';
+import 'package:bowl_speed/utils/db_helper.dart';
+import 'package:bowl_speed/utils/formate_functions.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,6 +30,7 @@ class QuickTapController extends GetxController {
   double distance = 20.0;
   double speedInKmph = 0.0;
   double speedInMph = 0.0;
+  late List<QuickTapModel> historyList;
 
   final CountDownController countDownController = CountDownController();
 
@@ -37,13 +42,13 @@ class QuickTapController extends GetxController {
     countDownController.start();
 
     _milliseconds = 0;
-    formattedTime = _formatTime(_milliseconds);
+    formattedTime = formatTime(_milliseconds);
 
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(milliseconds: 1), (timer) {
       _milliseconds += 3;
 
-      formattedTime = _formatTime(_milliseconds);
+      formattedTime = formatTime(_milliseconds);
 
       update([durationId]);
     });
@@ -51,7 +56,7 @@ class QuickTapController extends GetxController {
     update([timerId]);
   }
 
-  String _formatTime(int milliseconds) {
+  String formatTime(int milliseconds) {
     int hours = (milliseconds ~/ (1000 * 60 * 60)) % 24;
     int minutes = (milliseconds ~/ (1000 * 60)) % 60;
     int seconds = (milliseconds ~/ 1000) % 60;
@@ -86,7 +91,19 @@ class QuickTapController extends GetxController {
       middleText:
           "${speedInKmph.toStringAsFixed(1)} km/h - ${speedInMph.toStringAsFixed(1)} mph",
       confirm: ElevatedButton(
-        onPressed: () {},
+        onPressed: () async {
+          QuickTapModel model = QuickTapModel(
+              bowler: "Vishal",
+              distance: distance,
+              time: formattedTime,
+              kmh: speedInKmph,
+              mps: speedInMph,
+              measurementType: "Quick Tap",
+              date: formatDateTime(DateTime.now()));
+          await DatabaseHelper.instance.insertQuickTapCalculator(model);
+          Get.back();
+          Get.snackbar("Saved", "Recored Saved...");
+        },
         style: ElevatedButton.styleFrom(
           foregroundColor: AppColors.textWhiteColor,
           backgroundColor: AppColors.primaryColor,
@@ -198,5 +215,10 @@ class QuickTapController extends GetxController {
         label: const Text("Save"),
       ),
     );
+  }
+
+  void getHistory() async {
+    historyList = await DatabaseHelper.instance.readAllQuickTapCalcs();
+    Get.to(() => const QuickTapHistoryScreen());
   }
 }
