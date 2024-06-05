@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'services/controllers/manual_calc_controller.dart';
+import 'services/controllers/menu_feature_controller.dart';
 import 'utils/db_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DatabaseHelper.instance.database; // Ensure database is initialized
+  Get.put<MenuFeatureController>(MenuFeatureController());
   Get.put<ManualCalculatorController>(ManualCalculatorController());
+
   runApp(const MyApp());
 }
 

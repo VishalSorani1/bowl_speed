@@ -2,6 +2,7 @@
 
 import 'package:bowl_speed/services/controllers/manual_calc_controller.dart';
 import 'package:bowl_speed/utils/validators.dart';
+import 'package:bowl_speed/widgets/custom_menu_features.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,12 +28,7 @@ class ManualCalculatorScreen extends GetView<ManualCalculatorController> {
             ),
             onPressed: () => controller.getHistory(),
           ),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.more_vert_rounded,
-                color: Colors.white,
-              ))
+          CustomMenuFeatures("Manual Calcualtor"),
         ],
       ),
       body: GestureDetector(
