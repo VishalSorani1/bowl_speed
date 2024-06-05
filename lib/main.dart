@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:bowl_speed/Pages/how%20to%20use/how_to_use_screen.dart';
 import 'package:bowl_speed/Pages/manual%20calculator/manual_calculator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: ManualCalculatorScreen(),
+      home: HowToUseScreen(),
     );
   }
 }
