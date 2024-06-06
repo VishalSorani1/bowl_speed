@@ -44,6 +44,10 @@ dependencies:
   get_storage: ^2.1.1
   sqflite: ^2.3.3+1
   path : 
+  share_plus: ^9.0.0
+  url_launcher: ^6.3.0
+  appinio_video_player: ^1.0.0
+  file_picker: ^5.2.6
 
 dev_dependencies:
   flutter_test:
