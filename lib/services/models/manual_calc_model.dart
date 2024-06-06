@@ -1,16 +1,16 @@
 class ManualCalcModel {
   final double distance;
   final double time;
-  final double mps;
-  final double fps;
+  final double kmh;
+  final double mph;
   final String measurementType;
   final String date;
 
   ManualCalcModel({
     required this.distance,
     required this.time,
-    required this.mps,
-    required this.fps,
+    required this.kmh,
+    required this.mph,
     required this.measurementType,
     required this.date,
   });
@@ -19,8 +19,8 @@ class ManualCalcModel {
     return {
       'distance': distance,
       'time': time,
-      'mps': mps,
-      'fps': fps,
+      'kmh': kmh,
+      'mph': mph,
       'measurementType': measurementType,
       'date': date, 
     };
@@ -30,8 +30,8 @@ class ManualCalcModel {
     return ManualCalcModel(
       distance: map['distance']?.toDouble() ?? 0.0,
       time: map['time']?.toDouble() ?? 0.0,
-      mps: map['mps']?.toDouble() ?? 0.0,
-      fps: map['fps']?.toDouble() ?? 0.0,
+      kmh: map['kmh']?.toDouble() ?? 0.0,
+      mph: map['mph']?.toDouble() ?? 0.0,
       measurementType: map['measurementType'] ?? '',
       date: map['date'] ?? '',
     );
