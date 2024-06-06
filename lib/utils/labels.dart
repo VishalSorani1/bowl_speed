@@ -1,5 +1,4 @@
-class Labels{
-
+class Labels {
   /// Manual Calculator
   static String get manualCalculator => "Manual Calculator";
   static String get pitchSize => "Pitch Size (Meter)";
@@ -9,4 +8,15 @@ class Labels{
 
   /// All Buttons
   static String get calculate => "Calculate";
+  static String get change => "Change";
+  static String get cancel => "Cancel";
+
+  /// Settings
+  static String get settings => "Setting";
+  static String get selectGameType => "Select Game Type";
+  static String get cricket => "Cricket";
+  static String get baseBall => "Base Ball";
+  static String get setDefaultPitchmeter => "Set Default Pitch Meter";
+  static String get changePitchMeter => "Change Pitch Meter";
+  static String get enterMeter => "Enter Meter";
 }
