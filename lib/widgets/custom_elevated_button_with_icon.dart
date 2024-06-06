@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget customElevatedButtonWithIcon(
-    Function() onTap, String label,Color bgColor,Color fgColor, IconData icon) {
+Widget customElevatedButtonWithIcon(Function() onTap, String label,
+    Color bgColor, Color fgColor, IconData icon) {
   return ElevatedButton(
     onPressed: onTap,
     style: ElevatedButton.styleFrom(
       backgroundColor: bgColor,
       foregroundColor: fgColor,
-      iconColor: fgColor,
+      // iconColor: fgColor,
       padding: EdgeInsets.symmetric(horizontal: 14.0),
     ),
     child: Row(

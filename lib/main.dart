@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:bowl_speed/Pages/unit%20conversion/unit_conversion_screen.dart';
+>>>>>>>>> Temporary merge branch 2
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +37,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+<<<<<<<<< Temporary merge branch 1
+      home: const HomeScreen(),
+=========
+      home: UnitConversionScreen(),
+>>>>>>>>> Temporary merge branch 2
     );
   }
 }
