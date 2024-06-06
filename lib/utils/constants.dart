@@ -16,6 +16,7 @@ class StringConstants {
   static const String measureType = "Measurement Type:";
   static const String dateTime = "Date & Time:";
   static const String time = "Time:";
+  static const String importVideo = "Import Video";
 
   //Buttons
   static const String start = "Start";

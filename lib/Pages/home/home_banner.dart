@@ -1,3 +1,6 @@
+// ignore_for_file: unused_import
+
+import 'package:bowl_speed/services/controllers/bowler_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,14 +25,15 @@ class HomeBanner extends StatelessWidget {
           Container(
             width: Get.width,
             height: Get.height * 0.46,
-            decoration: const BoxDecoration(
-              color: AppColors.primaryColor1,
+            decoration: BoxDecoration(
+              color: AppColors.yellowColor.withOpacity(1),
             ),
             child: Stack(
               children: [
                 CustomAppBar(
-                  color: AppColors.primaryColor1,
+                  color: AppColors.yellowColor.withOpacity(0.1),
                   title: "",
+                  isHome: true,
                   onBack: () {},
                   onHistory: () {
                     QuickTapController.instance.getHistory();
@@ -45,7 +49,7 @@ class HomeBanner extends StatelessWidget {
                       style: GoogleFonts.rubik(
                           fontSize: 24,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.textWhiteColor),
+                          color: AppColors.textBlueColor.withOpacity(0.9)),
                     ),
                   ),
                 ),
@@ -59,7 +63,7 @@ class HomeBanner extends StatelessWidget {
                       style: GoogleFonts.rubik(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.textWhiteColor.withOpacity(0.6)),
+                          color: AppColors.textBlueColor.withOpacity(0.6)),
                     ),
                   ),
                 ),
@@ -71,7 +75,7 @@ class HomeBanner extends StatelessWidget {
                       Get.to(() => const BowlerDetailScreen());
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.greenColor,
+                      backgroundColor: AppColors.textBlueColor.withOpacity(0.9),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100),
                       ),
@@ -93,7 +97,8 @@ class HomeBanner extends StatelessWidget {
             right: 20,
             bottom: 0,
             child: Image.asset(
-              'assets/images/player4.png',
+              'assets/images/player5.png',
+              // color: AppColors.textBlueColor.withOpacity(0.6),
               fit: BoxFit.cover,
               height: Get.height * 0.34,
             ),

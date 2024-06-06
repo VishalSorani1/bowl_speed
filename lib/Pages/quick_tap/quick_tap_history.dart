@@ -1,4 +1,5 @@
 import 'package:bowl_speed/services/controllers/quick_tap_controller.dart';
+import 'package:bowl_speed/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,28 +17,11 @@ class QuickTapHistoryScreen extends GetView<QuickTapController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(Iconsax.arrow_left),
-        ),
-        backgroundColor: AppColors.primaryColor,
-        foregroundColor: AppColors.textWhiteColor,
-        title: Text(
-          StringConstants.historyTitle,
-          style: GoogleFonts.rubik(),
-        ),
-        actions: [
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              buildMenuItem('Rate us'),
-              buildMenuItem('Share app'),
-              buildMenuItem('Contact us'),
-              buildMenuItem('Privacy Policy'),
-            ],
-          ),
-        ],
+      appBar: CustomAppBar(
+        title: StringConstants.historyTitle,
+        onBack: () {},
+        onHistory: () {},
+        isHistoryBtnVisible: false,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),

@@ -92,7 +92,6 @@ class DatabaseHelper {
     const createTableQuery = '''
      CREATE TABLE ${TablesName.bowlerDetails} (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-
       name $textType,
       age $textType,
       type $textType,
@@ -100,6 +99,7 @@ class DatabaseHelper {
       created_at $textType
       )
     ''';
+    await _createTableIfNotExists(TablesName.bowlerDetails, createTableQuery);
     if (await isBowlerExists(model.name)) {
       // throw Exception('');
       ScaffoldMessenger.of(Get.context!).showSnackBar(
@@ -166,6 +166,17 @@ class DatabaseHelper {
       TablesName.bowlerDetails,
       where: 'id = ?',
       whereArgs: [id],
+    );
+    // deleteBowlerRecords(name);
+    return rowsAffected > 0;
+  }
+
+  Future<bool> deleteBowlerRecords(String name) async {
+    final db = await database;
+    final rowsAffected = await db.delete(
+      TablesName.quickTapCalculator,
+      where: 'bowler = ?',
+      whereArgs: [name],
     );
 
     return rowsAffected > 0;

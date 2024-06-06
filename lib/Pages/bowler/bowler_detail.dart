@@ -108,7 +108,9 @@ class BowlerDetailScreen extends StatelessWidget {
                                                         onTap: () {
                                                           ct.deteletBowler(ct
                                                               .bowlerList[index]
-                                                              .id!);
+                                                              .id!, ct
+                                                              .bowlerList[index]
+                                                              .name);
                                                         },
                                                         child: const Icon(
                                                           Icons.delete,

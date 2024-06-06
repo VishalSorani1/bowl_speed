@@ -78,11 +78,11 @@ class BowlerController extends GetxController
     // Get.to(() => const QuickTapHistoryScreen());
   }
 
-  
-
-  void deteletBowler(int index) async {
+  void deteletBowler(int index, String name) async {
     bool isDeleted = await DatabaseHelper.instance.deleteBowlerDetail(index);
-    if (isDeleted) {
+    bool isRecordsDeleted =
+        await DatabaseHelper.instance.deleteBowlerRecords(name);
+    if (isDeleted && isRecordsDeleted) {
       log("deleted");
       getAllBowlers();
     }

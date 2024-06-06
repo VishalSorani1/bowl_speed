@@ -29,6 +29,7 @@ class HomeScreen extends StatelessWidget {
 
     return GetBuilder<VideoMeasureController>(
       builder: (controller) => Scaffold(
+        backgroundColor: AppColors.textWhiteColor,
         // appBar: CustomAppBar(
         //   title: StringConstants.videoTitle,
         //   onBack: () {},
@@ -36,85 +37,125 @@ class HomeScreen extends StatelessWidget {
         //     QuickTapController.instance.getHistory();
         //   },
         // ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              //Home Banner section
-              const HomeBanner(),
+        body: CustomScrollView(
+          slivers: [
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: _SliverAppBarDelegate(
+                minHeight: Get.height * 0.47,
+                maxHeight: Get.height * 0.47,
+                child: const HomeBanner(),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  // QuickTap & Video Tap section
+                  const MenuSectionCard(),
 
-              //QuickTap & Video Tap section
-              const MenuSectionCard(),
+                  // Information section
+                  const InformationSection(),
 
-              //information section
-              const InformationSection(),
-
-              //Calculation & Converters section
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 28.0)
-                    .copyWith(bottom: 14),
-                child: Column(
-                  children: [
-                    CustomLabelText(
-                      label: StringConstants.caculatorSection,
-                      style: GoogleFonts.rubik(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  // Calculation & Converters section
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0)
+                        .copyWith(bottom: 14),
+                    child: Column(
                       children: [
-                        Column(
-                          children: [
-                            const Icon(
-                              Iconsax.add_square,
-                              size: 32,
-                              color: AppColors.primaryColor1,
-                            ),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            CustomLabelText(
-                              label: StringConstants.manual,
-                              style: GoogleFonts.rubik(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
+                        CustomLabelText(
+                          label: StringConstants.caculatorSection,
+                          style: GoogleFonts.rubik(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                        Column(
+                        const SizedBox(
+                          height: 14,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Icon(
-                              Iconsax.arrow_swap_horizontal,
-                              size: 32,
-                              color: AppColors.primaryColor1,
+                            Column(
+                              children: [
+                                const Icon(
+                                  Iconsax.add_square,
+                                  size: 32,
+                                  color: AppColors.primaryColor1,
+                                ),
+                                const SizedBox(
+                                  height: 6,
+                                ),
+                                CustomLabelText(
+                                  label: StringConstants.manual,
+                                  style: GoogleFonts.rubik(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            CustomLabelText(
-                              label: StringConstants.unit,
-                              style: GoogleFonts.rubik(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
+                            Column(
+                              children: [
+                                const Icon(
+                                  Iconsax.arrow_swap_horizontal,
+                                  size: 32,
+                                  color: AppColors.primaryColor1,
+                                ),
+                                const SizedBox(
+                                  height: 6,
+                                ),
+                                CustomLabelText(
+                                  label: StringConstants.unit,
+                                  style: GoogleFonts.rubik(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }
 
@@ -175,7 +216,7 @@ class CustomRoundedIcon extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: AppColors.greenColor,
+            color: AppColors.textBlueColor.withOpacity(0.9),
             borderRadius: BorderRadius.circular(50),
           ),
           child: Padding(

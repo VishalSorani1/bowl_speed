@@ -41,7 +41,7 @@ class MenuSectionCard extends StatelessWidget {
             ),
             Expanded(
               child: CardItem(
-                title: StringConstants.videoTitle,
+                title: StringConstants.importVideo,
                 message: StringConstants.videoMessage,
                 isReverse: true,
                 onTap: () {

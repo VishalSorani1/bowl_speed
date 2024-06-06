@@ -1,4 +1,7 @@
 import 'dart:developer';
+import 'package:bowl_speed/Pages/bowler/add_bowler_details.dart';
+import 'package:bowl_speed/services/controllers/bowler_controller.dart';
+import 'package:bowl_speed/services/models/bowler_model.dart';
 import 'package:bowl_speed/utils/colors.dart';
 import 'package:bowl_speed/widgets/custom_app_bar.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
@@ -16,6 +19,7 @@ class QuickTapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bowler = Get.put(BowlerController());
     final controller = Get.put(QuickTapController());
 
     return Scaffold(
@@ -62,6 +66,65 @@ class QuickTapScreen extends StatelessWidget {
                       const SizedBox(
                         height: 16.0,
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: CustomLabelText(
+                                label: "Bowler ${StringConstants.name}",
+                                style: GoogleFonts.rubik(
+                                    fontSize: 12,
+                                    color: AppColors.textDarkColor
+                                        .withOpacity(0.7),
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            Flexible(
+                              child: GetBuilder<BowlerController>(
+                                id: 'bowler',
+                                builder: (ct) {
+                                  return DropdownButtonFormField<String>(
+                                    style: GoogleFonts.rubik(
+                                        color: AppColors.textDarkColor,
+                                        fontWeight: FontWeight.w400),
+                                    decoration: const InputDecoration(
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 0.0, vertical: 0.0),
+                                      border: InputBorder.none,
+                                    ),
+                                    value: ct.bowlerList.isNotEmpty
+                                        ? ct.bowlerList[0].name
+                                        : null,
+                                    onChanged: (String? newValue) {
+                                      controller.selectBowler(newValue!);
+                                    },
+                                    items: ct.bowlerList
+                                        .map<DropdownMenuItem<String>>(
+                                            (BowlerDetails value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value.name,
+                                        child: Text(
+                                          value.name,
+                                          overflow: TextOverflow.ellipsis,
+                                          softWrap: true,
+                                          maxLines: 1,
+                                        ),
+                                      );
+                                    }).toList(),
+                                    validator: (value) => value == null
+                                        ? 'Please select an option'
+                                        : null,
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 4),
                         child: Row(
@@ -180,16 +243,17 @@ class QuickTapScreen extends StatelessWidget {
                           duration: 60,
                           initialDuration: 0,
                           controller: controller.countDownController,
-                          width: Get.width / 1.6,
-                          height: Get.height / 2,
+                          width: Get.width / 1.7,
+                          height: Get.height / 2.4,
                           ringColor: Colors.grey[300]!,
                           ringGradient: null,
                           fillColor: AppColors.containerColor,
                           fillGradient: null,
-                          backgroundColor: AppColors.primaryColor,
+                          backgroundColor:
+                              AppColors.textBlueColor.withOpacity(0.9),
                           backgroundGradient: null,
                           strokeWidth: 20.0,
-                          strokeCap: StrokeCap.square,
+                          strokeCap: StrokeCap.butt,
                           textStyle: const TextStyle(
                               fontSize: 33.0,
                               color: Colors.white,
@@ -212,7 +276,7 @@ class QuickTapScreen extends StatelessWidget {
                           timeFormatterFunction:
                               (defaultFormatterFunction, duration) {
                             if (duration.inSeconds == 0) {
-                              return "Start";
+                              return duration.inSeconds;
                             } else {
                               // controller.updateTime(duration);
 
@@ -221,23 +285,58 @@ class QuickTapScreen extends StatelessWidget {
                             }
                           },
                         ),
-                        SizedBox(
-                          width: Get.width * 0.4,
-                          height: Get.width * 0.13,
-                          child: ElevatedButton(
-                            onPressed: controller.isTimerOn
-                                ? controller.stopTimer
-                                : controller.startTimer,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryColor,
-                              foregroundColor: AppColors.textWhiteColor,
-                            ),
-                            child: Text(
-                              controller.isTimerOn == true ? "Finish" : "Start",
-                              style: GoogleFonts.rubik(fontSize: 16),
-                            ),
-                          ),
-                        ),
+                        GetBuilder<BowlerController>(
+                            id: "bowler",
+                            builder: (ct) {
+                              return SizedBox(
+                                width: Get.width * 0.4,
+                                height: Get.width * 0.13,
+                                child: ElevatedButton(
+                                  onPressed: ct.bowlerList.isEmpty
+                                      ? () {
+                                          Get.defaultDialog(
+                                              title: "Oops!!",
+                                              middleText:
+                                                  "Please Add Bolwers First",
+                                              confirm: ElevatedButton(
+                                                onPressed: () {
+                                                  Get.back();
+                                                  Get.to(
+                                                    () =>
+                                                        const AddBowlerDetails(),
+                                                  );
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: AppColors
+                                                      .textBlueColor
+                                                      .withOpacity(0.9),
+                                                  foregroundColor:
+                                                      AppColors.textWhiteColor,
+                                                ),
+                                                child: Text(
+                                                  "Add Bowler",
+                                                  style: GoogleFonts.rubik(
+                                                      fontSize: 16),
+                                                ),
+                                              ));
+                                        }
+                                      : controller.isTimerOn
+                                          ? controller.stopTimer
+                                          : controller.startTimer,
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.textBlueColor
+                                        .withOpacity(0.9),
+                                    foregroundColor: AppColors.textWhiteColor,
+                                  ),
+                                  child: Text(
+                                    controller.isTimerOn == true
+                                        ? "Finish"
+                                        : "Start",
+                                    style: GoogleFonts.rubik(fontSize: 16),
+                                  ),
+                                ),
+                              );
+                            }),
                       ],
                     );
                   }),
