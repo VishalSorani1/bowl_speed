@@ -18,8 +18,9 @@ class HomeBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: Get.height * 0.47,
+      decoration: const BoxDecoration(color: AppColors.textBlueColor),
       child: Stack(
         children: [
           Container(
