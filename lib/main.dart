@@ -9,7 +9,9 @@ import 'services/controllers/manual_calc_controller.dart';
 import 'services/controllers/menu_feature_controller.dart';
 
 import 'services/controllers/unit_conversion_controller.dart';
+import 'services/controllers/settings_controller.dart';
 import 'utils/db_helper.dart';
+
 
 
 
@@ -19,7 +21,7 @@ void main() async {
   Get.put<MenuFeatureController>(MenuFeatureController());
   Get.put<ManualCalculatorController>(ManualCalculatorController());
   Get.put<UnitConversionController>(UnitConversionController());
-
+  Get.put<SettingsController>(SettingsController());
   runApp(const MyApp());
 }
 
