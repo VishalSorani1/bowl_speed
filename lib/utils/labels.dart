@@ -8,7 +8,7 @@ class Labels {
   static const String kilometerPerHour = "Km/h";
   static const String milesPerHour = "Mph";
   static String get measurementType => "Measurement Type";
-  static String get date => "Date"; 
+  static String get date => "Date";
 
   /// Unit Conversion
   static const String unitConversion = "Unit Conversion";
@@ -16,12 +16,11 @@ class Labels {
   static const String convertSpeed = "Convert Speed :";
   static const String miles = "Miles";
   static const String kilometer = "Kilometer";
-  static const String  meter = "Meter";
+  static const String meter = "Meter";
   static const String yard = "Yard";
   static const String nauticalMiles = "Nautical Miles";
   static const String meterPerSecond = "m/s";
   static const String nauticalMilesPerHour = "Knot";
-
 
   // How to use
   static String get howToUse => "How to use";
@@ -36,7 +35,8 @@ class Labels {
       "When the ball is thrown you press the release point and the ball reaches the batsman press the reach point and check the speed.";
   static String get descriptionFour =>
       "After check the speed save the speed details for the future with date and time period.";
-  static List<String> get steps => [descriptionOne, descriptionTwo, descriptionThree, descriptionFour];
+  static List<String> get steps =>
+      [descriptionOne, descriptionTwo, descriptionThree, descriptionFour];
 
   /// All Buttons
   static String get calculate => "Calculate";
@@ -53,4 +53,11 @@ class Labels {
   static String get enterMeter => "Enter Meter";
   static String get releasePoint => "Release Point";
   static String get reachPoint => "Reach Point";
+
+  // Validators
+  static String get distance => "Distance";
+  static String get time => "Time";
+  static String get speed => "Speed";
+
+  
 }

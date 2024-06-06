@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:bowl_speed/utils/labels.dart';
+import 'package:bowl_speed/widgets/custom_menu_features.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,13 +19,7 @@ class HowToUseScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Color(0xff053ac3),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.more_vert_rounded,
-              color: Colors.white,
-            ),
-          ),
+          CustomMenuFeatures(""),
         ],
       ),
       body: Padding(

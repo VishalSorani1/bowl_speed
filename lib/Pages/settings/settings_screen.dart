@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../services/controllers/settings_controller.dart';
 import '../../utils/labels.dart';
+import '../../widgets/custom_menu_features.dart';
 
 class SettingsScreen extends GetView<SettingsController> {
   const SettingsScreen({super.key});
@@ -19,6 +20,9 @@ class SettingsScreen extends GetView<SettingsController> {
         ),
         centerTitle: true,
         backgroundColor: Color(0xff006769),
+        actions: [
+          CustomMenuFeatures(""),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
