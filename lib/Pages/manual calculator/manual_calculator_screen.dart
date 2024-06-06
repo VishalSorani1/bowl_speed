@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
+import 'package:bowl_speed/Pages/manual%20calculator/manual_calc_history.dart';
 import 'package:bowl_speed/services/controllers/manual_calc_controller.dart';
+import 'package:bowl_speed/utils/constants.dart';
 import 'package:bowl_speed/utils/validators.dart';
+import 'package:bowl_speed/widgets/custom_app_bar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,25 +18,12 @@ class ManualCalculatorScreen extends GetView<ManualCalculatorController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Labels.manualCalculator),
-        centerTitle: true,
-        backgroundColor: Color(0xff006769),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.history_rounded,
-              color: Colors.orange,
-            ),
-            onPressed: () => controller.getHistory(),
-          ),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.more_vert_rounded,
-                color: Colors.white,
-              ))
-        ],
+      appBar: CustomAppBar(
+        title: StringConstants.manual,
+        onBack: () {},
+        onHistory: () {
+          ManualCalculatorController.instance.getHistory();
+        },
       ),
       body: GestureDetector(
         onTap: () {

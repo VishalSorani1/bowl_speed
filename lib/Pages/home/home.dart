@@ -1,5 +1,7 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:bowl_speed/Pages/manual%20calculator/manual_calculator_screen.dart';
+import 'package:bowl_speed/services/controllers/manual_calc_controller.dart';
 import 'package:bowl_speed/services/controllers/quick_tap_controller.dart';
 import 'package:bowl_speed/utils/colors.dart';
 import 'package:bowl_speed/utils/constants.dart';
@@ -26,6 +28,7 @@ class HomeScreen extends StatelessWidget {
 
     final controller = Get.put(VideoMeasureController());
     final quick = Get.put(QuickTapController());
+    final manual = Get.put(ManualCalculatorController());
 
     return GetBuilder<VideoMeasureController>(
       builder: (controller) => Scaffold(
@@ -75,24 +78,29 @@ class HomeScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Column(
-                              children: [
-                                const Icon(
-                                  Iconsax.add_square,
-                                  size: 32,
-                                  color: AppColors.primaryColor1,
-                                ),
-                                const SizedBox(
-                                  height: 6,
-                                ),
-                                CustomLabelText(
-                                  label: StringConstants.manual,
-                                  style: GoogleFonts.rubik(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(() => ManualCalculatorScreen());
+                              },
+                              child: Column(
+                                children: [
+                                  const Icon(
+                                    Iconsax.add_square,
+                                    size: 32,
+                                    color: AppColors.primaryColor1,
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+                                  CustomLabelText(
+                                    label: StringConstants.manual,
+                                    style: GoogleFonts.rubik(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             Column(
                               children: [
@@ -115,9 +123,9 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 50,
-                        )
+                        // const SizedBox(
+                        //   height: 50,
+                        // )
                       ],
                     ),
                   ),

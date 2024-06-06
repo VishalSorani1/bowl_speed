@@ -216,7 +216,7 @@ class QuickTapController extends GetxController {
           update([durationId, timerId]);
         },
         style: ElevatedButton.styleFrom(
-          iconColor: AppColors.textWhiteColor,
+          
           foregroundColor: AppColors.textWhiteColor,
           backgroundColor: AppColors.primaryColor,
           shape: RoundedRectangleBorder(

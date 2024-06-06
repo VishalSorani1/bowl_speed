@@ -3,6 +3,7 @@ class StringConstants {
 
   static const String quickTapTitle = "Quick Tap";
   static const String videoTitle = "Bowl Speed";
+  static const String manualTitle = "Manual Calculator";
   static const String historyTitle = "History";
   static const String gameType = "Game Type";
   static const String cricket = "Cricket";
