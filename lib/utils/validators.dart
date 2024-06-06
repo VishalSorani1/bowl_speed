@@ -1,23 +1,18 @@
 class Validators {
-  static String? validatePitchSize(String? value) {
-    {
-      if (value == null || value.isEmpty) {
-        return 'Please enter the Distance';
-      } else if (value == "0") {
-        return 'Value must be greater than zero';
-      }
-      return null;
+ static String? _validatePositiveNumber(String? value, String fieldName) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the $fieldName';
+    } else if (double.tryParse(value) == null || double.parse(value) <= 0) {
+      return 'Value must be greater than zero';
     }
+    return null;
+  }
+
+  static String? validatePitchSize(String? value) {
+    return _validatePositiveNumber(value, 'Distance');
   }
 
   static String? validateTime(String? value) {
-    {
-      if (value == null || value.isEmpty) {
-        return 'Please enter the Time';
-      } else if (value == "0") {
-        return 'Value must be greater than zero';
-      }
-      return null;
-    }
+    return _validatePositiveNumber(value, 'Time');
   }
 }

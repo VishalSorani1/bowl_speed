@@ -32,16 +32,21 @@ class DatabaseHelper {
     return await openDatabase(path, version: 1);
   }
 
+  /// Method for checking if table exists
+  Future<bool> _checkTableExists(String tableName) async {
+    final db = await instance.database;
+    var tableExistsResult = await db.rawQuery(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='$tableName'");
+    return tableExistsResult.isEmpty;
+  }
+
   /// Method creating Table
   Future<void> _createTableIfNotExists(
       String tableName, String createTableQuery) async {
     final db = await instance.database;
 
-    // Check if the table exists
-    var tableExistsResult = await db.rawQuery(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name='$tableName'");
-
-    if (tableExistsResult.isEmpty) {
+    // Check if the table is not exists
+    if (await _checkTableExists(tableName)) {
       await db.execute(createTableQuery);
     }
   }
@@ -66,6 +71,8 @@ class DatabaseHelper {
     T Function(Map<String, dynamic>) fromMap,
   ) async {
     final db = await instance.database;
+    if (await _checkTableExists(table)) return [];
+    
     final result = await db.query(table, orderBy: orderBy);
     return result.map((json) => fromMap(json)).toList();
   }
@@ -76,8 +83,8 @@ class DatabaseHelper {
      CREATE TABLE ${TablesName.manualCalculator} (
       distance $doubleType,
       time $doubleType,
-      mps $doubleType,
-      fps $doubleType,
+      kmh $doubleType,
+      mph $doubleType,
       measurementType $textType,
       date $textType
       )

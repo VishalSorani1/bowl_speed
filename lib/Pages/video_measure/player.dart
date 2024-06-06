@@ -1,7 +1,7 @@
 import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:bowl_speed/services/controllers/video_measure_controller.dart';
 import 'package:bowl_speed/utils/colors.dart';
-import 'package:bowl_speed/utils/constants.dart';
+import 'package:bowl_speed/utils/labels.dart';
 import 'package:bowl_speed/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +26,7 @@ class Player extends GetView<VideoMeasureController> {
     return Scaffold(
       backgroundColor: AppColors.textDarkColor,
       appBar: CustomAppBar(
-          title: StringConstants.videoTitle,
+          title: Labels.videoTitle,
           onBack: () {
             Get.back();
           },

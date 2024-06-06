@@ -3,6 +3,7 @@ import 'package:bowl_speed/Pages/bowler/add_bowler_details.dart';
 import 'package:bowl_speed/services/controllers/bowler_controller.dart';
 import 'package:bowl_speed/services/models/bowler_model.dart';
 import 'package:bowl_speed/utils/colors.dart';
+import 'package:bowl_speed/utils/labels.dart';
 import 'package:bowl_speed/widgets/custom_app_bar.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
@@ -19,13 +20,14 @@ class QuickTapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final bowler = Get.put(BowlerController());
     final controller = Get.put(QuickTapController());
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
-        title: StringConstants.quickTapTitle,
+        title: Labels.quickTap,
         onBack: () {},
         onHistory: () {
           QuickTapController.instance.getHistory();
@@ -52,12 +54,12 @@ class QuickTapScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomLabelText(
-                            label: StringConstants.gameType,
+                            label: Labels.selectGameType,
                             style: GoogleFonts.rubik(
                                 fontWeight: FontWeight.w500, fontSize: 16),
                           ),
                           CustomLabelText(
-                            label: StringConstants.cricket,
+                            label: Labels.cricket,
                             style: GoogleFonts.rubik(
                                 fontSize: 16, fontWeight: FontWeight.w500),
                           ),
@@ -73,7 +75,7 @@ class QuickTapScreen extends StatelessWidget {
                           children: [
                             Expanded(
                               child: CustomLabelText(
-                                label: "Bowler ${StringConstants.name}",
+                                label: "${Labels.bowlerName} :",
                                 style: GoogleFonts.rubik(
                                     fontSize: 12,
                                     color: AppColors.textDarkColor
@@ -131,7 +133,7 @@ class QuickTapScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomLabelText(
-                              label: StringConstants.distance,
+                              label: "${Labels.pitchSize} :",
                               style: GoogleFonts.rubik(
                                   fontSize: 12,
                                   color:
@@ -170,9 +172,9 @@ class QuickTapScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(right: Get.width * 0.31),
+                              padding: EdgeInsets.only(right: Get.width * 0.29),
                               child: CustomLabelText(
-                                label: StringConstants.speed,
+                                label: "${Labels.speed} :",
                                 style: GoogleFonts.rubik(
                                     fontSize: 12,
                                     color: AppColors.textDarkColor
@@ -206,7 +208,7 @@ class QuickTapScreen extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(right: Get.width * 0.32),
                               child: CustomLabelText(
-                                label: StringConstants.timer,
+                                label: "${Labels.time} :",
                                 style: GoogleFonts.rubik(
                                     fontSize: 12,
                                     color: AppColors.textDarkColor
@@ -314,7 +316,7 @@ class QuickTapScreen extends StatelessWidget {
                                                       AppColors.textWhiteColor,
                                                 ),
                                                 child: Text(
-                                                  "Add Bowler",
+                                                  Labels.addBowler,
                                                   style: GoogleFonts.rubik(
                                                       fontSize: 16),
                                                 ),
@@ -330,8 +332,8 @@ class QuickTapScreen extends StatelessWidget {
                                   ),
                                   child: Text(
                                     controller.isTimerOn == true
-                                        ? "Finish"
-                                        : "Start",
+                                        ? Labels.finish
+                                        : Labels.start,
                                     style: GoogleFonts.rubik(fontSize: 16),
                                   ),
                                 ),

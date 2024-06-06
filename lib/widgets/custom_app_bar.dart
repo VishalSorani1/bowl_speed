@@ -28,10 +28,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      // leading: IconButton(
-      //   onPressed: onBack,
-      //   icon: const Icon(Iconsax.arrow_left),
-      // ),
       backgroundColor: color,
       foregroundColor: AppColors.textWhiteColor,
       title: Text(
@@ -54,10 +50,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           iconColor:
               isHome ? AppColors.textBlueColor : AppColors.textWhiteColor,
           itemBuilder: (context) => [
-            buildMenuItem('Rate us'),
-            buildMenuItem('Share app'),
-            buildMenuItem('Contact us'),
-            buildMenuItem('Privacy Policy'),
+            buildMenuItem('Rate us', () {}),
+            buildMenuItem('Share app', () {}),
+            buildMenuItem('Contact us', () {}),
+            buildMenuItem('Privacy Policy', () {}),
           ],
         ),
       ],

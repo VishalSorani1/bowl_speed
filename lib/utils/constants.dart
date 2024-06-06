@@ -12,11 +12,11 @@ class StringConstants {
   static const String speed = "Speed";
   static const String timer = "Timer";
 
-  static const String speedKmh = "Speed Km/H:";
-  static const String speedMhp = "Speed Mph:";
-  static const String measureType = "Measurement Type:";
-  static const String dateTime = "Date & Time:";
-  static const String time = "Time:";
+  static const String speedKmh = "Speed Km/H :";
+  static const String speedMhp = "Speed Mph :";
+  static const String measureType = "Measurement Type :";
+  static const String dateTime = "Date & Time :";
+  static const String time = "Time :";
   static const String importVideo = "Import Video";
 
   //Buttons

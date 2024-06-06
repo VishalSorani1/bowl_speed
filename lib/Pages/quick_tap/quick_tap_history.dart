@@ -1,14 +1,16 @@
-import 'package:bowl_speed/services/controllers/quick_tap_controller.dart';
-import 'package:bowl_speed/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax/iconsax.dart';
+
+import 'package:bowl_speed/services/controllers/quick_tap_controller.dart';
+import 'package:bowl_speed/utils/labels.dart';
+
+
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
+import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_card_row.dart';
 import '../../widgets/custom_lable_text.dart';
-import '../../widgets/menu_item.dart';
 
 class QuickTapHistoryScreen extends GetView<QuickTapController> {
   const QuickTapHistoryScreen({super.key});
@@ -50,24 +52,24 @@ class QuickTapHistoryScreen extends GetView<QuickTapController> {
                                 children: [
                                   _buildHeader(history.bowler),
                                   const SizedBox(height: 16.0),
-                                  _buildCustomCardRow(StringConstants.distance,
+                                  _buildCustomCardRow("${Labels.pitchSize} :",
                                       history.distance.toString()),
                                   _buildDivider(),
                                   _buildCustomCardRow(
-                                      StringConstants.time, history.time),
+                                      "${Labels.timeOfTravel} :", history.time),
                                   _buildDivider(),
-                                  _buildCustomCardRow(StringConstants.speedKmh,
+                                  _buildCustomCardRow(Labels.speedKmh,
                                       history.kmh.toStringAsFixed(2)),
                                   _buildDivider(),
-                                  _buildCustomCardRow(StringConstants.speedMhp,
+                                  _buildCustomCardRow(Labels.speedMhp,
                                       history.mps.toStringAsFixed(2)),
                                   _buildDivider(),
                                   _buildCustomCardRow(
-                                      StringConstants.measureType,
+                                      "${Labels.measurementType} :",
                                       history.measurementType),
                                   _buildDivider(),
                                   _buildCustomCardRow(
-                                      StringConstants.dateTime, history.date),
+                                      "${Labels.date} :", history.date),
                                 ],
                               ),
                             ),
@@ -92,7 +94,7 @@ class QuickTapHistoryScreen extends GetView<QuickTapController> {
           style: GoogleFonts.rubik(fontWeight: FontWeight.w500, fontSize: 16),
         ),
         CustomLabelText(
-          label: StringConstants.cricket,
+          label: Labels.cricket,
           style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ],

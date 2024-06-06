@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../services/controllers/quick_tap_controller.dart';
 import '../../utils/colors.dart';
+import '../../utils/labels.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_lable_text.dart';
 import '../bowler/bowler_detail.dart';
@@ -46,7 +47,7 @@ class HomeBanner extends StatelessWidget {
                   child: SizedBox(
                     width: Get.width / 2,
                     child: CustomLabelText(
-                      label: "BOWLING SPEED METER",
+                      label: Labels.bannerTitle,
                       style: GoogleFonts.rubik(
                           fontSize: 24,
                           fontWeight: FontWeight.w500,
@@ -60,7 +61,7 @@ class HomeBanner extends StatelessWidget {
                   child: SizedBox(
                     width: Get.width,
                     child: CustomLabelText(
-                      label: "Measure Your Bowling Speed",
+                      label: Labels.bannerSubTitle,
                       style: GoogleFonts.rubik(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -85,9 +86,9 @@ class HomeBanner extends StatelessWidget {
                         vertical: 10.0,
                       ),
                     ),
-                    child: const Text(
-                      "Bowler Detail",
-                      style: TextStyle(color: AppColors.textWhiteColor),
+                    child: Text(
+                      Labels.bowlerDetails,
+                      style: const TextStyle(color: AppColors.textWhiteColor),
                     ),
                   ),
                 ),
@@ -98,7 +99,7 @@ class HomeBanner extends StatelessWidget {
             right: 20,
             bottom: 0,
             child: Image.asset(
-              'assets/images/player5.png',
+              Images.bannerImage,
               // color: AppColors.textBlueColor.withOpacity(0.6),
               fit: BoxFit.cover,
               height: Get.height * 0.34,

@@ -2,8 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:bowl_speed/services/controllers/bowler_controller.dart';
 import 'package:bowl_speed/services/controllers/quick_tap_controller.dart';
 import 'package:bowl_speed/utils/colors.dart';
+import 'package:bowl_speed/utils/labels.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -74,16 +76,16 @@ class VideoMeasureController extends GetxController {
     return Get.defaultDialog(
       title: "Bowl Speed",
       middleText: "${speed.toStringAsFixed(1)} km/h",
-      textConfirm: "Save",
-      textCancel: "Cancel",
+      textConfirm: Labels.save,
+      textCancel: Labels.cancel,
       onConfirm: () async {
         QuickTapModel model = QuickTapModel(
-            bowler: "Vishal",
+            bowler: BowlerController.instance.bowlerList.first.name,
             distance: 20,
             time: formattedTime,
             kmh: speed,
             mps: speedInMph,
-            measurementType: "Video Tap",
+            measurementType: Labels.videoTap,
             date: formatDateTime(DateTime.now()));
         await DatabaseHelper.instance.insertQuickTapCalculator(model);
         Get.back();
@@ -227,7 +229,7 @@ class VideoMeasureController extends GetxController {
                 ),
               ),
               child: const Text(
-                "Release Point",
+                Labels.release,
                 style: TextStyle(fontSize: 12),
               ),
             ),
@@ -249,7 +251,7 @@ class VideoMeasureController extends GetxController {
                 ),
               ),
               child: const Text(
-                "Reach Point",
+                Labels.reach,
                 style: TextStyle(fontSize: 12),
               ),
             ),
