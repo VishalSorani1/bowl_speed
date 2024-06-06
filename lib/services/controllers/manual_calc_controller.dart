@@ -64,6 +64,7 @@ class ManualCalculatorController extends GetxController {
 
   void getHistory() async {
     historyList = await DatabaseHelper.instance.readAllManualCalcs();
+    update();
     Get.to(() => ManualCalcHistory());
   }
 }

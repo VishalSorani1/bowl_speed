@@ -1,11 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors
 
+import 'package:bowl_speed/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../services/controllers/settings_controller.dart';
 import '../../utils/labels.dart';
-import '../../widgets/custom_menu_features.dart';
 
 class SettingsScreen extends GetView<SettingsController> {
   const SettingsScreen({super.key});
@@ -13,16 +13,11 @@ class SettingsScreen extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          Labels.settings,
-          style: TextStyle(fontSize: 22.0, color: Colors.white),
-        ),
-        centerTitle: true,
-        backgroundColor: Color(0xff006769),
-        actions: [
-          CustomMenuFeatures(""),
-        ],
+      appBar: CustomAppBar(
+        title: Labels.settings,
+        onBack: () {},
+        onHistory: () {},
+        isHistoryBtnVisible: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

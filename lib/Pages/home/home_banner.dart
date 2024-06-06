@@ -1,9 +1,13 @@
+// ignore_for_file: unused_import
+
+import 'package:bowl_speed/services/controllers/bowler_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../services/controllers/quick_tap_controller.dart';
 import '../../utils/colors.dart';
+import '../../utils/labels.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_lable_text.dart';
 import '../bowler/bowler_detail.dart';
@@ -15,21 +19,23 @@ class HomeBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: Get.height * 0.47,
+      decoration: const BoxDecoration(color: AppColors.textBlueColor),
       child: Stack(
         children: [
           Container(
             width: Get.width,
             height: Get.height * 0.46,
-            decoration: const BoxDecoration(
-              color: AppColors.primaryColor1,
+            decoration: BoxDecoration(
+              color: AppColors.yellowColor.withOpacity(1),
             ),
             child: Stack(
               children: [
                 CustomAppBar(
-                  color: AppColors.primaryColor1,
+                  color: AppColors.yellowColor.withOpacity(0.1),
                   title: "",
+                  isHome: true,
                   onBack: () {},
                   onHistory: () {
                     QuickTapController.instance.getHistory();
@@ -41,11 +47,11 @@ class HomeBanner extends StatelessWidget {
                   child: SizedBox(
                     width: Get.width / 2,
                     child: CustomLabelText(
-                      label: "BOWLING SPEED METER",
+                      label: Labels.bannerTitle,
                       style: GoogleFonts.rubik(
                           fontSize: 24,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.textWhiteColor),
+                          color: AppColors.textBlueColor.withOpacity(0.9)),
                     ),
                   ),
                 ),
@@ -55,11 +61,11 @@ class HomeBanner extends StatelessWidget {
                   child: SizedBox(
                     width: Get.width,
                     child: CustomLabelText(
-                      label: "Measure Your Bowling Speed",
+                      label: Labels.bannerSubTitle,
                       style: GoogleFonts.rubik(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.textWhiteColor.withOpacity(0.6)),
+                          color: AppColors.textBlueColor.withOpacity(0.6)),
                     ),
                   ),
                 ),
@@ -71,7 +77,7 @@ class HomeBanner extends StatelessWidget {
                       Get.to(() => const BowlerDetailScreen());
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.greenColor,
+                      backgroundColor: AppColors.textBlueColor.withOpacity(0.9),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100),
                       ),
@@ -80,9 +86,9 @@ class HomeBanner extends StatelessWidget {
                         vertical: 10.0,
                       ),
                     ),
-                    child: const Text(
-                      "Bowler Detail",
-                      style: TextStyle(color: AppColors.textWhiteColor),
+                    child: Text(
+                      Labels.bowlerDetails,
+                      style: const TextStyle(color: AppColors.textWhiteColor),
                     ),
                   ),
                 ),
@@ -93,7 +99,8 @@ class HomeBanner extends StatelessWidget {
             right: 20,
             bottom: 0,
             child: Image.asset(
-              'assets/images/player4.png',
+              Images.bannerImage,
+              // color: AppColors.textBlueColor.withOpacity(0.6),
               fit: BoxFit.cover,
               height: Get.height * 0.34,
             ),

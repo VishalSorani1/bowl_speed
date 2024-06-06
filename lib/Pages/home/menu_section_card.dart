@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../services/controllers/video_measure_controller.dart';
 import '../../utils/colors.dart';
-import '../../utils/constants.dart';
+import '../../utils/labels.dart';
 import '../../widgets/card_item.dart';
 import '../quick_tap/quick_tap_screen.dart';
 
@@ -26,8 +25,8 @@ class MenuSectionCard extends StatelessWidget {
           children: [
             Expanded(
               child: CardItem(
-                title: StringConstants.quickTapTitle,
-                message: StringConstants.quickTapMessage,
+                title: Labels.quickTap,
+                message: Labels.quickTapMessage,
                 isReverse: false,
                 onTap: () {
                   Get.to(() => const QuickTapScreen(),
@@ -41,8 +40,8 @@ class MenuSectionCard extends StatelessWidget {
             ),
             Expanded(
               child: CardItem(
-                title: StringConstants.videoTitle,
-                message: StringConstants.videoMessage,
+                title: Labels.importVideo,
+                message: Labels.videoMessage,
                 isReverse: true,
                 onTap: () {
                   VideoMeasureController.instance.pickVideo();

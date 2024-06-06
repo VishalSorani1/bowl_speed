@@ -1,31 +1,21 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:bowl_speed/services/controllers/unit_conversion_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../utils/enums.dart';
-
-class CustomInputDropdown<T extends Unit> extends GetView<UnitConversionController> {
-  const CustomInputDropdown( 
-      {
-      super.key,
-      required this.formKey,
+class CustomInputDropdown extends StatelessWidget {
+  const CustomInputDropdown(
+      {super.key,
       required this.formController,
       required this.formOnChanged,
       required this.dropdownValue,
       required this.dropdownItems,
-      required this.dropdownonChanged,
-      required this.validator,
-      });
+      this.dropdownonChanged});
 
-  final T dropdownValue;
-  final List<T> dropdownItems;
-  final GlobalKey<FormState> formKey;
+  final String dropdownValue;
+  final List<String> dropdownItems;
   final TextEditingController formController;
   final void Function(String)? formOnChanged;
-  final void Function(T?)? dropdownonChanged;
-  final String? Function(String?)? validator;
+  final void Function(String?)? dropdownonChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +25,12 @@ class CustomInputDropdown<T extends Unit> extends GetView<UnitConversionControll
       children: [
         Flexible(
           flex: 5,
-          child: DropdownButton<T>(
+          child: DropdownButton<String>(
             value: dropdownValue,
-            items: dropdownItems.map((T unit) {
-              return DropdownMenuItem<T>(
+            items: dropdownItems.map((String unit) {
+              return DropdownMenuItem<String>(
                 value: unit,
-                child: Text(unit.getLabel),
+                child: Text(unit),
               );
             }).toList(),
             onChanged: dropdownonChanged,
@@ -49,14 +39,10 @@ class CustomInputDropdown<T extends Unit> extends GetView<UnitConversionControll
         SizedBox(width: 6),
         Flexible(
             flex: 4,
-            child: Form(
-              key: formKey,
-              child: TextFormField(
-                controller: formController,
-                keyboardType: TextInputType.number,
-                onChanged: formOnChanged,
-                validator: validator,
-              ),
+            child: TextFormField(
+              controller: formController,
+              keyboardType: TextInputType.number,
+              onChanged: formOnChanged,
             )),
       ],
     );

@@ -2,8 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:bowl_speed/services/controllers/bowler_controller.dart';
 import 'package:bowl_speed/services/controllers/quick_tap_controller.dart';
 import 'package:bowl_speed/utils/colors.dart';
+import 'package:bowl_speed/utils/labels.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -67,19 +69,23 @@ class VideoMeasureController extends GetxController {
 
   void showAlert() async {
     speed = calculateSpeedInKmPerHour(20, point2 - point1);
-    Get.defaultDialog(
+    showDialog();
+  }
+
+  Future<dynamic> showDialog() {
+    return Get.defaultDialog(
       title: "Bowl Speed",
       middleText: "${speed.toStringAsFixed(1)} km/h",
-      textConfirm: "Save",
-      textCancel: "Cancel",
+      textConfirm: Labels.save,
+      textCancel: Labels.cancel,
       onConfirm: () async {
         QuickTapModel model = QuickTapModel(
-            bowler: "Vishal",
+            bowler: BowlerController.instance.bowlerList.first.name,
             distance: 20,
             time: formattedTime,
             kmh: speed,
             mps: speedInMph,
-            measurementType: "Video Tap",
+            measurementType: Labels.videoTap,
             date: formatDateTime(DateTime.now()));
         await DatabaseHelper.instance.insertQuickTapCalculator(model);
         Get.back();
@@ -145,54 +151,35 @@ class VideoMeasureController extends GetxController {
                 cachedVideoPlayerController.seekTo(newPosition);
                 log(newPosition.toString());
               },
-              icon: const Icon(
-                Icons.skip_previous_outlined,
-                color: Colors.white,
-                size: 24,
-              ),
+              icon: const ControllIcons(icon: Icons.skip_previous_outlined),
             ),
             IconButton(
-              onPressed: () {
-                final Duration currentPosition =
-                    cachedVideoPlayerController.value.position;
-                final Duration frameDuration =
-                    Duration(milliseconds: (4000 / 60).round());
-                final Duration newPosition = currentPosition - frameDuration;
-                cachedVideoPlayerController.seekTo(newPosition);
-                log(newPosition.toString());
-              },
-              icon: const Icon(
-                Icons.skip_previous,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
+                onPressed: () {
+                  final Duration currentPosition =
+                      cachedVideoPlayerController.value.position;
+                  final Duration frameDuration =
+                      Duration(milliseconds: (4000 / 60).round());
+                  final Duration newPosition = currentPosition - frameDuration;
+                  cachedVideoPlayerController.seekTo(newPosition);
+                  log(newPosition.toString());
+                },
+                icon: const ControllIcons(icon: Icons.skip_previous)),
             IconButton(
-              onPressed: () {
-                cachedVideoPlayerController.pause();
-              },
-              icon: const Icon(
-                Icons.pause_outlined,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
+                onPressed: () {
+                  cachedVideoPlayerController.pause();
+                },
+                icon: const ControllIcons(icon: Icons.pause_outlined)),
             IconButton(
-              onPressed: () {
-                final Duration currentPosition =
-                    cachedVideoPlayerController.value.position;
-                final Duration frameDuration =
-                    Duration(milliseconds: (4000 / 60).round());
-                final Duration newPosition = currentPosition + frameDuration;
-                cachedVideoPlayerController.seekTo(newPosition);
-                log(newPosition.toString());
-              },
-              icon: const Icon(
-                Icons.skip_next,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
+                onPressed: () {
+                  final Duration currentPosition =
+                      cachedVideoPlayerController.value.position;
+                  final Duration frameDuration =
+                      Duration(milliseconds: (4000 / 60).round());
+                  final Duration newPosition = currentPosition + frameDuration;
+                  cachedVideoPlayerController.seekTo(newPosition);
+                  log(newPosition.toString());
+                },
+                icon: const ControllIcons(icon: Icons.skip_next)),
             IconButton(
               onPressed: () {
                 final Duration currentPosition =
@@ -203,10 +190,8 @@ class VideoMeasureController extends GetxController {
                 cachedVideoPlayerController.seekTo(newPosition);
                 log(newPosition.toString());
               },
-              icon: const Icon(
-                Icons.skip_next_outlined,
-                color: Colors.white,
-                size: 24,
+              icon: const ControllIcons(
+                icon: Icons.skip_next_outlined,
               ),
             ),
           ],
@@ -236,15 +221,15 @@ class VideoMeasureController extends GetxController {
                     .videoPlayerController.value.position.inMilliseconds;
               },
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.greenAccent,
+                foregroundColor: AppColors.textDarkColor.withOpacity(0.6),
+                backgroundColor: AppColors.yellowColor.withOpacity(0.8),
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
               child: const Text(
-                "Release Point",
+                Labels.release,
                 style: TextStyle(fontSize: 12),
               ),
             ),
@@ -258,15 +243,15 @@ class VideoMeasureController extends GetxController {
                 showAlert();
               },
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.greenAccent,
+                foregroundColor: AppColors.textDarkColor.withOpacity(0.6),
+                backgroundColor: AppColors.yellowColor.withOpacity(0.8),
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
               child: const Text(
-                "Reach Point",
+                Labels.reach,
                 style: TextStyle(fontSize: 12),
               ),
             ),
@@ -275,83 +260,84 @@ class VideoMeasureController extends GetxController {
         playButton: Row(
           children: [
             IconButton(
-              onPressed: () {
-                final Duration currentPosition =
-                    cachedVideoPlayerController.value.position;
-                final Duration frameDuration =
-                    Duration(milliseconds: (1000 / 60).round());
-                final Duration newPosition = currentPosition - frameDuration;
-                cachedVideoPlayerController.seekTo(newPosition);
-                log(newPosition.toString());
-              },
-              icon: const Icon(
-                Icons.skip_previous_outlined,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
+                onPressed: () {
+                  final Duration currentPosition =
+                      cachedVideoPlayerController.value.position;
+                  final Duration frameDuration =
+                      Duration(milliseconds: (1000 / 60).round());
+                  final Duration newPosition = currentPosition - frameDuration;
+                  cachedVideoPlayerController.seekTo(newPosition);
+                  log(newPosition.toString());
+                },
+                icon: const ControllIcons(icon: Icons.skip_previous_outlined)),
             IconButton(
-              onPressed: () {
-                final Duration currentPosition =
-                    cachedVideoPlayerController.value.position;
-                final Duration frameDuration =
-                    Duration(milliseconds: (4000 / 60).round());
-                final Duration newPosition = currentPosition - frameDuration;
-                cachedVideoPlayerController.seekTo(newPosition);
-                log(newPosition.toString());
-              },
-              icon: const Icon(
-                Icons.skip_previous,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
+                onPressed: () {
+                  final Duration currentPosition =
+                      cachedVideoPlayerController.value.position;
+                  final Duration frameDuration =
+                      Duration(milliseconds: (4000 / 60).round());
+                  final Duration newPosition = currentPosition - frameDuration;
+                  cachedVideoPlayerController.seekTo(newPosition);
+                  log(newPosition.toString());
+                },
+                icon: const ControllIcons(icon: Icons.skip_previous)),
             IconButton(
-              onPressed: () {
-                cachedVideoPlayerController.play();
-              },
-              icon: const Icon(
-                Icons.play_arrow,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
+                onPressed: () {
+                  cachedVideoPlayerController.play();
+                },
+                icon: const ControllIcons(icon: Icons.play_arrow)),
             IconButton(
-              onPressed: () {
-                final Duration currentPosition =
-                    cachedVideoPlayerController.value.position;
-                final Duration frameDuration =
-                    Duration(milliseconds: (4000 / 60).round());
-                final Duration newPosition = currentPosition + frameDuration;
-                cachedVideoPlayerController.seekTo(newPosition);
-                log(newPosition.toString());
-              },
-              icon: const Icon(
-                Icons.skip_next,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
+                onPressed: () {
+                  final Duration currentPosition =
+                      cachedVideoPlayerController.value.position;
+                  final Duration frameDuration =
+                      Duration(milliseconds: (4000 / 60).round());
+                  final Duration newPosition = currentPosition + frameDuration;
+                  cachedVideoPlayerController.seekTo(newPosition);
+                  log(newPosition.toString());
+                },
+                icon: const ControllIcons(icon: Icons.skip_next)),
             IconButton(
-              onPressed: () {
-                final Duration currentPosition =
-                    cachedVideoPlayerController.value.position;
-                final Duration frameDuration =
-                    Duration(milliseconds: (1000 / 60).round());
-                final Duration newPosition = currentPosition + frameDuration;
-                cachedVideoPlayerController.seekTo(newPosition);
-                log(newPosition.toString());
-              },
-              icon: const Icon(
-                Icons.skip_next_outlined,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
+                onPressed: () {
+                  final Duration currentPosition =
+                      cachedVideoPlayerController.value.position;
+                  final Duration frameDuration =
+                      Duration(milliseconds: (1000 / 60).round());
+                  final Duration newPosition = currentPosition + frameDuration;
+                  cachedVideoPlayerController.seekTo(newPosition);
+                  log(newPosition.toString());
+                },
+                icon: const ControllIcons(icon: Icons.skip_next_outlined)),
           ],
         ),
       ),
     );
     // cachedVideoPlayerController.play();
+  }
+}
+
+class ControllIcons extends StatelessWidget {
+  const ControllIcons({
+    super.key,
+    required this.icon,
+  });
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(6),
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: AppColors.yellowColor,
+      ),
+      child: Center(
+        child: Icon(
+          icon,
+          color: AppColors.textDarkColor.withOpacity(0.6),
+          size: 24,
+        ),
+      ),
+    );
   }
 }

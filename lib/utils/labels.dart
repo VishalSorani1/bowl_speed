@@ -1,4 +1,27 @@
 class Labels {
+  //Quick Tap
+  static String get quickTap => "Quick Tap";
+  static String get bowlerName => "Bowler Name";
+  static String get speed => "Speed";
+  static String get time => "Time";
+  static const String quickTapMessage = "Measure bowling speed with stopwatch";
+  static const String videoMessage = "Measure bowling speed by importing video";
+  static const String importVideo = "Import Video";
+  static const String bannerTitle = "BOWLING SPEED METER";
+  static const String bannerSubTitle = "Measure Your Bowling Speed";
+
+  static String get bowlerReport => "Bowler Report";
+  static const String caculatorSection = "Calculator & Converter";
+  static const String videoTitle = "Bowl Speed";
+  static const String videoTap = "Video Tap";
+  static const String release = "Release Point";
+  static const String reach = "Reach Point";
+
+  //Add Bowler
+  static String get bowlerStyle => "Bowler Style";
+  static String get bowlerType => "Bowler Type";
+  static String get bowlerAge => "Bowler Age";
+
   /// Manual Calculator
   static String get manualCalculator => "Manual Calculator";
   static String get pitchSize => "Pitch Size (Meter)";
@@ -9,6 +32,9 @@ class Labels {
   static const String milesPerHour = "Mph";
   static String get measurementType => "Measurement Type";
   static String get date => "Date";
+
+  static const String speedKmh = "Speed Km/H :";
+  static const String speedMhp = "Speed Mph :";
 
   /// Unit Conversion
   static const String unitConversion = "Unit Conversion";
@@ -42,9 +68,14 @@ class Labels {
   static String get calculate => "Calculate";
   static String get change => "Change";
   static String get cancel => "Cancel";
+  static String get save => "Save";
+  static String get start => "Start";
+  static String get finish => "Finish";
+  static String get addBowler => "Add Bowler";
+  static String get bowlerDetails => "Bowler Detail";
 
   /// Settings
-  static String get settings => "Setting";
+  static String get settings => "Settings";
   static String get selectGameType => "Select Game Type";
   static String get cricket => "Cricket";
   static String get baseBall => "Base Ball";
@@ -53,11 +84,8 @@ class Labels {
   static String get enterMeter => "Enter Meter";
   static String get releasePoint => "Release Point";
   static String get reachPoint => "Reach Point";
+}
 
-  // Validators
-  static String get distance => "Distance";
-  static String get time => "Time";
-  static String get speed => "Speed";
-
-  
+class Images {
+  static String get bannerImage => "assets/images/player5.png";
 }

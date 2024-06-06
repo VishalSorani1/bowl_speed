@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bowl_speed/pages/quick_tap/quick_tap_history.dart';
+import 'package:bowl_speed/services/controllers/bowler_controller.dart';
 import 'package:bowl_speed/services/models/quick_tap_model.dart';
 import 'package:bowl_speed/utils/colors.dart';
 import 'package:bowl_speed/utils/db_helper.dart';
@@ -25,6 +26,7 @@ class QuickTapController extends GetxController {
 
   String formattedTime = '00:00:00';
   String speed = "--";
+  String selectedBowler = "";
   int _milliseconds = 0;
   Timer? _timer;
   double distance = 20.0;
@@ -34,10 +36,23 @@ class QuickTapController extends GetxController {
 
   final CountDownController countDownController = CountDownController();
 
+  @override
+  void onInit() async {
+    super.onInit();
+    selectedBowler = BowlerController.instance.bowlerList.first.name;
+    update(['bowler']);
+  }
+
+  void selectBowler(String value) {
+    selectedBowler = value;
+    update(['bowler']);
+  }
+
   void startTimer() {
     isTimerOn = true;
     speed = "00.0 km/h - 00.0 mph";
     formattedTime = "00:00:00";
+
     update([speedId]);
     countDownController.start();
 
@@ -93,7 +108,7 @@ class QuickTapController extends GetxController {
       confirm: ElevatedButton(
         onPressed: () async {
           QuickTapModel model = QuickTapModel(
-              bowler: "Vishal",
+              bowler: selectedBowler,
               distance: distance,
               time: formattedTime,
               kmh: speedInKmph,
@@ -201,7 +216,7 @@ class QuickTapController extends GetxController {
           update([durationId, timerId]);
         },
         style: ElevatedButton.styleFrom(
-          iconColor: AppColors.textWhiteColor,
+          
           foregroundColor: AppColors.textWhiteColor,
           backgroundColor: AppColors.primaryColor,
           shape: RoundedRectangleBorder(
@@ -219,6 +234,7 @@ class QuickTapController extends GetxController {
 
   void getHistory() async {
     historyList = await DatabaseHelper.instance.readAllQuickTapCalcs();
+    update();
     Get.to(() => const QuickTapHistoryScreen());
   }
 }

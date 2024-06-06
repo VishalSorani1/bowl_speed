@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../services/controllers/unit_conversion_controller.dart';
-import '../../utils/enums.dart';
 
-class CustomOutputDropdown<T extends Unit> extends GetView<UnitConversionController> {
+class CustomOutputDropdown extends StatelessWidget {
   const CustomOutputDropdown(
       {super.key,
       required this.dropdownValue,
@@ -16,9 +15,10 @@ class CustomOutputDropdown<T extends Unit> extends GetView<UnitConversionControl
       required this.result});
 
   final String result;
-  final T dropdownValue;
-  final List<T> dropdownItems;
-  final void Function(T?)? dropdownonChanged;
+  final String dropdownValue;
+  final List<String> dropdownItems;
+
+  final void Function(String?)? dropdownonChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +28,12 @@ class CustomOutputDropdown<T extends Unit> extends GetView<UnitConversionControl
       children: [
         Flexible(
           flex: 5,
-          child: DropdownButton<T>(
+          child: DropdownButton<String>(
             value: dropdownValue,
-            items: dropdownItems.map((T unit) {
-              return DropdownMenuItem<T>(
+            items: dropdownItems.map((String unit) {
+              return DropdownMenuItem<String>(
                 value: unit,
-                child: Text(unit.getLabel),
+                child: Text(unit),
               );
             }).toList(),
             onChanged: dropdownonChanged,
